@@ -1,0 +1,12 @@
+"DatePicker.alertButton.default" = "Выбрать";
+"TextViewIntput.readyButton.default" = "Готово";
+
+/*
+ Localizable.strings
+ Template.ageone
+ 
+ Created by Konstantin Kovalenko on 13/03/2019.
+ Copyright © 2019 Konstantin Kovalenko. All rights reserved.
+ */
+
+"Loading.Title" = "ПЕРВОЕ ГОРОДСКОЕ ТАКСИ";

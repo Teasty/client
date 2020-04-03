@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Снежок</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string></string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Разрешить доступ к камере, чтобы использовать фото сразу?</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Предоставьте доступ к контактам, чтобы выбрать из открытого списка?</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Упростить вход и использовать индентификацию по лицу или отпечатку?</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Предоставить доступ к локации аппарата, чтобы автоматически определить место?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Показать ваши текущие координаты на карте?</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Разрешить уточнить данные о текущем положении устройства?</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Разрешите доступ к расширенным данным библиотеке для загрузки фото из него?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Разрешите доступ к фото библиотеке, чтобы использовать фото из неё?</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+</dict>
+</plist>
