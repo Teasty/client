@@ -52,6 +52,11 @@ extension Utiles {
             return result
         }
         
+        func card(_ card: String) -> String {
+            let characters = card.map { String($0) }
+            return ["**** \(characters[12])\(characters[13])\(characters[14])\(characters[15])"].joined(separator: "")
+        }
+        
     }
     
     public struct Validation {

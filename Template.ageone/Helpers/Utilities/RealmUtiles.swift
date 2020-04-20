@@ -236,19 +236,19 @@ extension Utiles {
 
         public let eventBus = "eventBusObserveRealmPayment"
 
-        public func getObjects() -> [Payment] {
+        public func getObjects() -> [Card] {
             let realm = try! Realm()
-            return Array(realm.objects(Payment.self).filter({$0.isExist}))
+            return Array(realm.objects(Card.self).filter({$0.isExist}))
         }
 
-        public func getResults() -> Results<Payment> {
+        public func getResults() -> Results<Card> {
             let realm = try! Realm()
-            return realm.objects(Payment.self)
+            return realm.objects(Card.self)
         }
 
-        public func getObjectsById(_ objectId: String) -> Payment? {
+        public func getObjectsById(_ objectId: String) -> Card? {
             let realm = try! Realm()
-            guard let object = realm.object(ofType: Payment.self, forPrimaryKey: objectId) else { return nil }
+            guard let object = realm.object(ofType: Card.self, forPrimaryKey: objectId) else { return nil }
             if object.isExist {
                 return object
             } else {

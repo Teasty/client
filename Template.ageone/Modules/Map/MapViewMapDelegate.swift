@@ -64,26 +64,32 @@ extension MapView {
             createMarker(to, R.image.pinTo())
         }     
     }
-
+    
     public func createMarker(_ coordinates: GoogleMapKit.Coordinates, _ image: UIImage?, _ type: String = "waymark") {
         let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: coordinates.lat, longitude: coordinates.lng))
         if let image = image {
             marker.icon = image
+            log.error(marker.icon)
         }
         marker.map = map
         marker.userData = type
         viewModel.markers.append(marker)
     }
     
-    public func drawPolilyne(_ paths: [GMSPath]) {
-        for path in paths {
-            let polyline = GMSPolyline.init(path: path)
-            polyline.strokeColor = utils.constants.colors.red
-            polyline.strokeWidth = 4
-            polyline.map = self.map
-            map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: path), withPadding: 50.0))
-            viewModel.polylines.append(polyline)
+    public func drawPolilyne() {
+        guard let road = rxData.currentOrder?.roadToArrival else { return }
+        deleteAllPolylines()
+        let path = GMSMutablePath()
+        for point in road.roadPoints {
+            path.addLatitude(point.lat, longitude: point.lng)
         }
+        let newPath = GMSPath(fromEncodedPath: path.encodedPath())
+        let polyline = GMSPolyline(path: newPath)
+        polyline.strokeColor = utils.constants.colors.red
+        polyline.strokeWidth = 4
+        polyline.map = self.map
+        map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: path), withPadding: 50.0))
+        viewModel.polylines.append(polyline)
     }
     
     public func deleteAllMarkers() {
@@ -113,7 +119,7 @@ extension MapView {
             log.info("Order is empty, current order: \(rxData.currentOrder)")
             
             if let point = rxData.currentOrder?.departure {
-                from = GoogleMapKit.Coordinates(lat: point.lat , lng: point.lng)
+                from = GoogleMapKit.Coordinates(lat: point.lat, lng: point.lng)
             }
             
             if let point = rxData.currentOrder?.arrival {
@@ -121,20 +127,12 @@ extension MapView {
             }
             
             if let point = rxData.currentOrder?.intermediatePoint1, rxData.currentOrder?.intermediatePoint1?.lng != 0 && rxData.currentOrder?.intermediatePoint1?.lat != 0 {
-                 waypoints.append(GoogleMapKit.Coordinates(lat: point.lat, lng: point.lng))
+                waypoints.append(GoogleMapKit.Coordinates(lat: point.lat, lng: point.lng))
             }
             if let point = rxData.currentOrder?.intermediatePoint2, rxData.currentOrder?.intermediatePoint2?.lng != 0 && rxData.currentOrder?.intermediatePoint2?.lat != 0 {
                 waypoints.append(GoogleMapKit.Coordinates(lat: point.lat, lng: point.lng))
             }
-            
-            utils.googleMapKit.loadRoutePath(
-                from: GoogleMapKit.Coordinates(lat: rxData.currentOrder?.departure?.lat ?? 0, lng: rxData.currentOrder?.departure?.lng ?? 0),
-                to: GoogleMapKit.Coordinates(lat: rxData.currentOrder?.arrival?.lat ?? 0, lng: rxData.currentOrder?.arrival?.lng ?? 0),
-                waypoints: waypoints,
-                completion: { [unowned self] (paths) in
-                    log.verbose(paths)
-                    self.drawPolilyne(paths)
-            })
+            self.drawPolilyne()
             self.createRouteMarkers()
             
         } else {
@@ -146,17 +144,9 @@ extension MapView {
             for waypoint in rxData.order.value.waypoints {
                 waypoints.append(GoogleMapKit.Coordinates(lat: waypoint.lat, lng: waypoint.lng))
             }
-            
-            utils.googleMapKit.loadRoutePath(
-                from: from,
-                to: to,
-                waypoints: waypoints,
-                completion: { [unowned self] (paths) in
-                    log.verbose(paths)
-                    self.drawPolilyne(paths)
-            })
+            self.drawPolilyne()
             self.createRouteMarkers()
         }
     }
-
+    
 }

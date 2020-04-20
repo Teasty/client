@@ -45,6 +45,7 @@ extension WishListView {
         bodyTable.register(WishListBaseTableCell.self)
         bodyTable.register(WishListCommentTableCell.self)
         bodyTable.register(WishListStaticTableCell.self)
+        bodyTable.register(WishListUpCostTableCell.self)
     }
     
     fileprivate func bindUI() {
@@ -52,7 +53,7 @@ extension WishListView {
             .asObservable()
             .bind { [unowned self] _ in
                 self.reload()
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
     
 }
@@ -62,7 +63,7 @@ extension WishListView {
 extension WishListView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.realmData.count + 2
+        return viewModel.realmData.count + 3
         //        return viewModel.realmData.count
     }
     
@@ -74,6 +75,11 @@ extension WishListView: UITableViewDelegate, UITableViewDataSource {
             return cell!
             
         case viewModel.realmData.count + 1:
+            let cell = reuse(tableView, indexPath, "WishListUpCostTableCell") as? WishListUpCostTableCell
+            cell?.initialize()
+            return cell!
+            
+        case viewModel.realmData.count + 2:
             let cell = reuse(tableView, indexPath, "WishListCommentTableCell") as? WishListCommentTableCell
             cell?.initialize(rxData.order.value.comment)
             cell?.onTap = {

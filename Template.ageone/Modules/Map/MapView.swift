@@ -242,6 +242,7 @@ extension MapView {
                         self.deleteAllPolylines()
                         self.viewModel.model.searchingTimer?.stop()
                         rxData.state.accept(.destination)
+//                        rxData.order.accept(RxData.OrderStruct())
                     })
                 } else {
                     log.info("no current order")
@@ -658,7 +659,8 @@ extension MapView: UITableViewDelegate, UITableViewDataSource {
                         loading.hide()
                         self.deleteAllPolylines()
                         self.deleteAllMarkers()
-                        rxData.state.accept(.current)
+//                        rxData.order.accept(RxData.OrderStruct())
+                        rxData.state.accept(.destination)
                     })
                 }
             }
@@ -682,7 +684,8 @@ extension MapView: UITableViewDelegate, UITableViewDataSource {
                         loading.hide()
                         self.deleteAllPolylines()
                         self.deleteAllMarkers()
-                        rxData.state.accept(RxData.StateType.current)
+//                        rxData.order.accept(RxData.OrderStruct())
+                        rxData.state.accept(.destination)
                     })
                 }
             }

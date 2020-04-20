@@ -150,7 +150,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 52 images.
+  /// This `R.image` struct is generated, and contains static references to 53 images.
   struct image {
     /// Image `Fire`.
     static let fire = Rswift.ImageResource(bundle: R.hostingBundle, name: "Fire")
@@ -254,6 +254,8 @@ struct R: Rswift.Validatable {
     static let tabBarSelectionSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabBarSelectionSelect")
     /// Image `tabBarSelectionUnSelect`.
     static let tabBarSelectionUnSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabBarSelectionUnSelect")
+    /// Image `tariffDefaultImage`.
+    static let tariffDefaultImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "tariffDefaultImage")
     /// Image `user`.
     static let user = Rswift.ImageResource(bundle: R.hostingBundle, name: "user")
 
@@ -611,6 +613,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "tabBarSelectionUnSelect", bundle: ..., traitCollection: ...)`
     static func tabBarSelectionUnSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.tabBarSelectionUnSelect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "tariffDefaultImage", bundle: ..., traitCollection: ...)`
+    static func tariffDefaultImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.tariffDefaultImage, compatibleWith: traitCollection)
     }
     #endif
 

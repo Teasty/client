@@ -116,64 +116,85 @@ class SocketIONetwork {
                 rxData.carOnMap2.accept([CarOnMap]())
             }
         }
-    )
-    
-    // MARK: Same User Auth
-    socket?.on("sameUserAuth", callback: { (_, _) in
-    alertAction.showAppExitMessage("В Ваш аккаунт зашли с другого устройства. Перезайдите в приложение.")
-    })
-    
-    // MARK: Arrived
-    socket?.on("arrived", callback: { (resp, _) in
-    guard let json = JSON(resp).first else {
-    log.error("WebSocket can't parse server responce \(resp)")
-    return
+        )
+        
+        // MARK: Same User Auth
+        socket?.on("sameUserAuth", callback: { (_, _) in
+            alertAction.showAppExitMessage("В Ваш аккаунт зашли с другого устройства. Перезайдите в приложение.")
+        })
+        
+        // MARK: Arrived
+        socket?.on("arrived", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            log.info("Socket: arrived")
+            _ = api.parcer.parseOrder(json.1)
+//            rxData.order.accept(RxData.OrderStruct())
+            user.info.isNeedToShowRateOrderView = true
+            user.info.rateOrderViewButtonIsTapped = false
+            rxData.checkCurrentOrder()
+        })
+        
+        // MARK: Accept Order
+        socket?.on("acceptOrder", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            log.info("Socket: orderAccepted, \(json)")
+            _ = api.parcer.parseOrder(json.1)
+            rxData.checkCurrentOrder()
+        })
+        // MARK: Waiting for Client
+        socket?.on("waitingForClient", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            log.info("Socket: waitingForClient")
+            _ = api.parcer.parseOrder(json.1)
+            rxData.checkCurrentOrder()
+        })
+        
+        // MARK: OnWay
+        
+        socket?.on("onWay", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            log.info("Socket: onWay")
+            log.info(api.parcer.parseOrder(json.1))
+            user.info.isNeedToShowOnWayAlert = true
+            user.info.isOnWayAlertButtonTapped = false
+            rxData.checkCurrentOrder()
+        })
+        
+        socket?.on("orderCancelFromAdmin", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            if let currentOrder = rxData.currentOrder {
+                rxData.state.accept(.current)
+            } else {
+                log.info("no current order")
+            }
+        })
+        
+        socket?.on("addCard", callback: { (resp, _) in
+            guard let json = JSON(resp).first else {
+                log.error("WebSocket can't parse server responce \(resp)")
+                return
+            }
+            log.info("Socket: addCard")
+            log.info(json)
+            api.parcer.userData(json.1["User"])
+        })
     }
-    log.info("Socket: arrived")
-    _ = api.parcer.parseOrder(json.1)
-    //            rxData.order.accept(RxData.OrderStruct())
-    user.info.isNeedToShowRateOrderView = true
-    user.info.rateOrderViewButtonIsTapped = false
-    rxData.checkCurrentOrder()
-    })
     
-    // MARK: Accept Order
-    socket?.on("acceptOrder", callback: { (resp, _) in
-    guard let json = JSON(resp).first else {
-    log.error("WebSocket can't parse server responce \(resp)")
-    return
-    }
-    log.info("Socket: orderAccepted, \(json)")
-    _ = api.parcer.parseOrder(json.1)
-    rxData.checkCurrentOrder()
-    })
-    // MARK: Waiting for Client
-    socket?.on("waitingForClient", callback: { (resp, _) in
-    guard let json = JSON(resp).first else {
-    log.error("WebSocket can't parse server responce \(resp)")
-    return
-    }
-    log.info("Socket: waitingForClient")
-    _ = api.parcer.parseOrder(json.1)
-    rxData.checkCurrentOrder()
-    })
-    
-    // MARK: OnWay
-    
-    socket?.on("onWay", callback: { (resp, _) in
-    guard let json = JSON(resp).first else {
-    log.error("WebSocket can't parse server responce \(resp)")
-    return
-    }
-    log.info("Socket: onWay")
-    log.info(api.parcer.parseOrder(json.1))
-    user.info.isNeedToShowOnWayAlert = true
-    user.info.isOnWayAlertButtonTapped = false
-    rxData.checkCurrentOrder()
-    })
-    //        TODO: машина
-}
-
 }
 
 extension SocketIONetwork {
@@ -186,9 +207,9 @@ extension SocketIONetwork {
         socket?.emit("lookForClosestDrivers", ["hashId": user.hashId, "lat": user.location.lat, "lng": user.location.lng])
     }
     
-//    public func chooseCertainDriver(driverId: String) {
-//        socket?.emit("chooseCertainDriver", ["driverId": driverId])
-//    }
+    //    public func chooseCertainDriver(driverId: String) {
+    //        socket?.emit("chooseCertainDriver", ["driverId": driverId])
+    //    }
     
     public func stopWatchingDriver() {
         socket?.emit("stopWatchingDriver")

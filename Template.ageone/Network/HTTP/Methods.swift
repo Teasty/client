@@ -45,7 +45,7 @@ extension API {
             ]
             api.request(parametrs, completion: { (json) in
                 //                log.verbose(json)
-                user.info.cacheTime = Int(Date().timeIntervalSince1970)
+                
                 api.parcer.parseOrder(json["currentOrder"])
                 log.info(json["currentOrder"])
                 
@@ -118,8 +118,6 @@ extension API {
             "orderHashId": orderHashId
         ]
         api.request(parametrs) { json in
-            //            log.verbose(json)
-            
             api.parcer.parseOrder(json["Order"])
             completion()
         }
@@ -205,29 +203,20 @@ extension API {
             "timeRequired": Int(rxData.order.value.time.timeIntervalSince1970),
             "comment": rxData.order.value.comment,
             "price": rxData.order.value.basePrice,
-            "paymentType": user.info.paymentType,
+            "paymentType": user.info.paymentType == "cash" ? "cash" : "card",
 //            "isDiscountRide": false,
-            "upCost": 0,
+            "upCost": Double(rxData.order.value.upCost) ?? 0,
             "wishList": wishes,
             "addressList": address
         ]
-        log.verbose(JSON(arrayLiteral: parametrs))
+//        log.verbose(JSON(arrayLiteral: parametrs))
         
-        api.request(parametrs, completion: { (json) in
-            log.verbose(json["error"])
-            if json["error"].stringValue.count > 0 {
-                DispatchQueue.main.async {
-                    
-                    alertAction.message("Ошибка заказа", "\(json["error"].stringValue)", fButtonName: "Ок") {
-                        loading.hide()
-                    }
-                }
-            } else {
-                api.parcer.parseOrder(json["Order"])
-                log.verbose(json)
+        api.request(parametrs, true, completion: { (json) in
+            log.info(api.parcer.parseOrder(json["Order"]))
+//                log.verbose(json)
                 rxData.checkCurrentOrder()
                 completion()
-            }
+            
         })
     }
     
@@ -278,7 +267,7 @@ extension API {
                 "tariffHashId": rxData.order.value.tariff.hashId,
                 "addressList": addresses,
                 "wishValueHashIdList": wishes,
-                "upCost": (rxData.currentOrder?.upCost) ?? 0
+                "upCost": Double(rxData.order.value.upCost) ?? 0
             ]
             log.verbose(JSON(arrayLiteral: parametrs))
             

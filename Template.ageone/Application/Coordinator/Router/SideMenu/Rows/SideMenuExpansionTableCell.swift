@@ -93,7 +93,7 @@ extension SideMenuExpansionTableCell {
             .observe(String.self, "user_paymentType")
             .subscribe({ [unowned self] value in
                 if user.info.paymentType != "cash" {
-                    self.labelDescription.text = "Карта"
+                    self.labelDescription.text = "Карта \(utils.formatter.card(utils.realm.payment.getObjects().first(where: { $0.hashId == user.info.paymentType })?.cardNumber ?? "****************"))"
                 } else {
                     self.labelDescription.text = "Наличные"
                 }

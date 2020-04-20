@@ -2354,11 +2354,11 @@ Copyright 2020 Google
 
 ## GoogleMaps
 
-Copyright 2019 Google
+Copyright 2020 Google
 
 ## GooglePlaces
 
-Copyright 2019 Google
+Copyright 2020 Google
 
 ## GoogleUtilities
 
@@ -4026,7 +4026,7 @@ THE SOFTWARE.
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Realm Inc.
+Copyright (c) 2020 Realm Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -47,4 +47,25 @@ extension BaseImageView {
         }
     }
     
+    public func loadTariffImage(_ path: String?) {
+            guard let unwarpPath = path else {
+                log.error("Empty image path")
+                return
+            }
+            if let url = URL(string: unwarpPath) {
+    //            kf.indicatorType = .activity
+                kf.setImage(
+                    with: url,
+                    placeholder: UIImage(),
+                    options: [ .transition(.fade(0.5)) ]) { result in
+                        switch result {
+                        case .success (let value): log.info("Image downloaded: \(value.source.url?.absoluteString ?? "")")
+                        case .failure (let error): log.info("Image failed: \(error.localizedDescription)")
+                        }
+                }
+            } else {
+                log.error("Wrong image path: \(unwarpPath)")
+            }
+        }
+    
 }

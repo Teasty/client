@@ -175,6 +175,7 @@ final class MapViewModel: BaseViewModel, ViewModelProtocol {
         alertAction.actionSheet(title: "На какую сумму увеличить ?", actions: actions, selected: "") { [unowned self] value in
             var order = rxData.order.value
             order.price += Double(value) ?? 0
+            order.upCost += Int(value) ?? 0
             rxData.order.accept(order)
             
             api.request(["router": "upCost", "orderHashId": rxData.currentOrder?.hashId, "upCost": Double(value) ?? 0], completion: { _ in

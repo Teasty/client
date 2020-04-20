@@ -5,7 +5,6 @@ import RealmSwift
 //import SwiftEventBus
 
 class Parser {
-
     public func parseAnyObject(_ object: String, _ json: JSON) {
         for element in json {
             switch object {
@@ -26,28 +25,10 @@ class Parser {
             default: break
             }
         }
-
-//            switch object {
-//            case "Address": SwiftEventBus.post(utils.realm.address.eventBus)
-//            case "Car": SwiftEventBus.post(utils.realm.car.eventBus)
-//            case "Config": SwiftEventBus.post(utils.realm.config.eventBus)
-//            case "Document": SwiftEventBus.post(utils.realm.document.eventBus)
-//            case "DriverDocument": SwiftEventBus.post(utils.realm.driverdocument.eventBus)
-//            case "Image": SwiftEventBus.post(utils.realm.image.eventBus)
-//            case "Msg": SwiftEventBus.post(utils.realm.msg.eventBus)
-//            case "Order": SwiftEventBus.post(utils.realm.order.eventBus)
-//            case "Payment": SwiftEventBus.post(utils.realm.payment.eventBus)
-//            case "Stop": SwiftEventBus.post(utils.realm.stop.eventBus)
-//            case "Tariff": SwiftEventBus.post(utils.realm.tariff.eventBus)
-//            case "User": SwiftEventBus.post(utils.realm.user.eventBus)
-//            case "WishList": SwiftEventBus.post(utils.realm.wishlist.eventBus)
-//            case "WishListValue": SwiftEventBus.post(utils.realm.wishlistvalue.eventBus)
-//            default: break
-//            }
     }
-
+    
     // MARK: Parse JSON to Realm
-
+    
     public func parseAddress(_ json: JSON) -> Address? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -65,12 +46,12 @@ class Parser {
             object.lat = json["lat"].doubleValue
             object.street = json["street"].stringValue
             object.city = json["city"].stringValue
-           
+            
             realm.add(object, update: true)
         }
         return object
     }
-
+    
     public func parseCar(_ json: JSON) -> Car? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -89,7 +70,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseConfig(_ json: JSON) -> Config? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -124,7 +105,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseDocument(_ json: JSON) -> Document? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -143,7 +124,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseDriverDocument(_ json: JSON) -> DriverDocument? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -162,7 +143,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseImage(_ json: JSON) -> Image? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -180,7 +161,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseMsg(_ json: JSON) -> Msg? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -202,7 +183,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseOrder(_ json: JSON) -> Order? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -217,6 +198,7 @@ class Parser {
                 wishlistvalues.append(unwarp)
             }
         }
+        let roads: Road? = parseRoad(json["roadToArrival"])
         let stopto: Stop? = parseStop(json["stopTo"])
         let tariff: Tariff? = parseTariff(json["tariff"])
         let intermediatepoint1: Address? = parseAddress(json["intermediatePoint1"])
@@ -238,10 +220,7 @@ class Parser {
         let intermediatepoint2: Address? = parseAddress(json["intermediatePoint2"])
         
         var distance: Double = 10.0
-//        if let departure = departure, let arrival = arrival {
-//            distance = calculateDistance(lat1: departure.latitude, lon1: departure.longitude, lat2: user.location.lat, lon2: user.location.lng)
-//        }
-
+        
         try? realm.write {
             object.hashId = json["hashId"].stringValue
             object.mssqlId = json["mssqlId"].stringValue
@@ -255,6 +234,7 @@ class Parser {
             object.intermediatePoint2 = intermediatepoint2
             object.arrival = arrival
             object.tariff = tariff
+            object.roadToArrival = roads
             object.wishList.append(objectsIn: wishlist)
             object.wishListValues.append(objectsIn: wishlistvalues)
             object.price = json["price"].doubleValue
@@ -281,25 +261,25 @@ class Parser {
         }
         return object
     }
-
-    public func parsePayment(_ json: JSON) -> Payment? {
+    
+    public func parsePayment(_ json: JSON) -> Card? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
             return nil
         }
-        let object = Payment()
+        let object = Card()
         try? realm.write {
             object.hashId = json["hashId"].stringValue
             object.created = json["created"].intValue
             object.updated = json["updated"].intValue
-            object.lastCardDigits = json["lastCardDigits"].stringValue
+            object.cardNumber = json["cardNumber"].stringValue
             object.isExist = json["isExist"].boolValue
-            object.rebillAnchor = json["rebillAnchor"].stringValue
+            object.cardHolder = json["cardHolder"].stringValue
             realm.add(object, update: true)
         }
         return object
     }
-
+    
     public func parseStop(_ json: JSON) -> Stop? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -317,7 +297,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseTariff(_ json: JSON) -> Tariff? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -340,15 +320,15 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseUser(_ json: JSON) -> User? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
             return nil
         }
         let object = User()
-        let activecard: Payment? = parsePayment(json["activeCard"])
-        var cards: [Payment] = []
+        let activecard: Card? = parsePayment(json["activeCard"])
+        var cards: [Card] = []
         for element in json["cards"] {
             if let unwarp = parsePayment(element.1) {
                 cards.append(unwarp)
@@ -389,7 +369,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseWishList(_ json: JSON) -> WishList? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -418,7 +398,7 @@ class Parser {
         }
         return object
     }
-
+    
     public func parseWishListValue(_ json: JSON) -> WishListValue? {
         guard let realm = try? Realm() else {
             log.error("Realm initilize error")
@@ -434,6 +414,60 @@ class Parser {
             object.isExist = json["isExist"].boolValue
             realm.add(object, update: true)
         }
+        return object
+    }
+}
+extension Parser {
+    
+    public func parseRoad(_ json: JSON) -> Road? {
+        
+        guard let realm = try? Realm() else {
+            log.error("Realm initilize error")
+            return nil
+        }
+        
+        var roadPoints: [RoadPoint] = []
+        let map = json["roadPoints"].dictionaryValue.sorted(by: { Int($0.0) ?? 0 < Int($1.0) ?? 0 })
+//        log.verbose(map)
+        for element in map {
+            if let point = parseRoadPoint(element.value) {
+                roadPoints.append(point)
+//                log.info(roadPoints)
+            }
+        }
+        let object = Road()
+        try? realm.write {
+            object.hashId = json["hashId"].stringValue
+            object.created = json["created"].intValue
+            object.updated = json["updated"].intValue
+            object.roadLength = json["roadLength"].doubleValue
+            object.roadPoints.append(objectsIn: roadPoints)
+            object.isExist = json["isExist"].boolValue
+            realm.add(object, update: true)
+        }
+        return object
+    }
+    
+    public func parseRoadPoint(_ json: JSON) -> RoadPoint? {
+        
+//        log.info("Road \(json)")
+        
+        guard let realm = try? Realm() else {
+            log.error("Realm initilize error")
+            return nil
+        }
+        
+        let object = RoadPoint()
+        try? realm.write {
+            object.hashId = json["hashId"].stringValue
+            object.created = json["created"].intValue
+            object.updated = json["updated"].intValue
+            object.lat = json["lat"].doubleValue
+            object.lng = json["lng"].doubleValue
+            object.isExist = json["isExist"].boolValue
+            realm.add(object, update: true)
+        }
+//        log.info(object)
         return object
     }
 }

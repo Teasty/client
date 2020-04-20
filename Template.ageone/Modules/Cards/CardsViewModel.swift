@@ -37,8 +37,8 @@ final class CardsViewModel: BaseViewModel, ViewModelProtocol {
     
     // MARK: Factory   -   [activate loadRealmData() in initialize]
     
-    public var realmData = [Payment]()
-    public func factory(_ index: IndexPath) -> Payment {
+    public var realmData = [Card]()
+    public func factory(_ index: IndexPath) -> Card {
         return realmData[index.row]
     }
     fileprivate func loadRealmData() {

@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         user.info.isNeedToShowOnWayAlert = true
         user.info.isNeedToShowRateOrderView = true
-        user.info.paymentType = "cash"
         user.info.didAskForDiscount = false
         
         if #available(iOS 10.0, *) {

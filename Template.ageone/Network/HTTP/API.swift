@@ -26,6 +26,7 @@ class API {
                 "deviceId": utils.constants.uuid,
                 "isDriver": "false"
             ]
+            log.info("Параметры: \(parameters)")
             Alamofire.request(
                 "\(DataBase.url)\(Routes.handshake)",
                 method: HTTPMethod.post,
@@ -35,7 +36,7 @@ class API {
                 .responseJSON { responce in
                     guard let value = responce.result.value else {
                         if let error = responce.error {
-                            log.error(error.localizedDescription)
+                            log.error(responce)
                             //                            MARK:  Кинуть АЛЕРТ
                         }
                         return
@@ -60,7 +61,7 @@ class API {
                             user.info.cacheTime = 0
                             user.serverVersion = json["serverVersion"].intValue
                         }
-                         seal.fulfill_()
+                        seal.fulfill_()
                     }
             }
         }
@@ -76,8 +77,14 @@ class API {
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: DataBase.headers).responseJSON { responce in
+                
+//                log.error(responce.debugDescription)
+                
+                guard let statusCode = responce.response?.statusCode else { return }
+                
                 guard let value = responce.result.value else {
                     if let error = responce.error {
+                        alertAction.message(error.localizedDescription)
                         log.error(error.localizedDescription)
                         loading.hide()
                     }
@@ -85,8 +92,7 @@ class API {
                 }
                 
                 let json = JSON(value)
-                //                log.verbose(json)
-                if json["error"].exists() {
+                if json["error"].exists() && !(200..<300).contains(statusCode) {
                     log.error(json["error"].stringValue)
                     if isErrorShow {
                         loading.hide()

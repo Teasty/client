@@ -47,7 +47,7 @@ class MapTariffsCollectionCell: BaseCollectionCell {
     
     // MARK: imageIcon
     
-    fileprivate let imageIcon: BaseImageView = {
+    fileprivate var imageIcon: BaseImageView = {
         var imageView = BaseImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.kf.indicatorType = .activity
@@ -142,7 +142,15 @@ extension MapTariffsCollectionCell {
     public func initialize(_ tariff: Tariff) {
         labelPrice.text = tariff.info
         labelName.text = tariff.name
-        imageIcon.loadImage(tariff.image?.original)
+        if let image = tariff.image?.original {
+            if image.isEmpty {
+                imageIcon.image = UIImage(named: "tariffDefaultImage")
+            } else {
+                imageIcon.loadImage(tariff.image?.original)
+            }
+        } else {
+            imageIcon.image = UIImage(named: "tariffDefaultImage")
+        }
         if rxData.order.value.tariff.hashId == tariff.hashId {
             viewShadow.isHidden = true
         } else {

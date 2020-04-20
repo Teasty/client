@@ -15,7 +15,6 @@ extension MapView {
     public func updateCarOnMap() {
         
         for car in rxData.carOnMap.value {
-            log.verbose("Car")
             if viewModel.carsOnMap.filter({$0.hashId == car.hashId}).isEmpty {
                 // add car on map
                 viewModel.carsOnMap.append(car)
@@ -27,11 +26,12 @@ extension MapView {
                 case "yellow": image = R.image.cardYellow()
                 case "white": image = R.image.carWhite()
                 case "red": image = R.image.carRed()
-                case "gray": image = R.image.carGray()
+                case "gray": image = UIImage(named: "")
                 default: image = R.image.carBlack()
                 }
                 createMarker(pin, image, car.hashId)
             }
+            log.verbose("Car on Map: \(car)")
         }
         
         var toRemove = [CarOnMap]()
@@ -56,11 +56,10 @@ extension MapView {
                         viewModel.carsOnMap[index].lat = toLat
                         viewModel.carsOnMap[index].lng = toLng
 
-                        log.verbose("Move: \(viewModel.carsOnMap[index])")
+                        log.error("Move: \(viewModel.carsOnMap[index])")
                     }
 
                     // move var on map
-                    log.verbose("Rx: \(rxData.carOnMap.value[index]) Map:\(viewModel.carsOnMap[index])")
                 }
             } else {
                 // delete cars from map

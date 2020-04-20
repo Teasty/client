@@ -21,12 +21,18 @@ final class Card2View: BaseController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         user.info.paymentType = viewModel.model.paymentType
+        self.reload()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        user.info.paymentType = viewModel.model.paymentType
+                user.info.paymentType = viewModel.model.paymentType
+        self.reload()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.reload()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Способ оплаты"
@@ -61,7 +67,7 @@ extension Card2View {
             .observe(String.self, "user_paymentType")
             .subscribe(onNext: { [unowned self] value in
                 log.verbose(value)
-//                self.viewModel.model.paymentType = user.info.paymentType
+                //                self.viewModel.model.paymentType = user.info.paymentType
                 self.reload()
             })
             .disposed(by: disposeBag)
@@ -74,7 +80,7 @@ extension Card2View {
 extension Card2View: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel.numberOfRows + 2
+        //        return self.viewModel.numberOfRows + 2
         return viewModel.realmData.count + 2
     }
     
@@ -84,34 +90,44 @@ extension Card2View: UITableViewDelegate, UITableViewDataSource {
             let cell = reuse(tableView, indexPath, "CardsCashTableCell") as? CardsCashTableCell
             cell?.initialize(viewModel.model.paymentType == "cash")
             cell?.onTap = { [unowned self] in
-                self.viewModel.model.paymentType = "cash"
-                self.reload()
+                api.request([
+                    "router": "togglePaymentType",
+                    "paymentData": "cash"
+                ], completion: { json in
+                    api.parcer.userData(json["User"])
+                    self.viewModel.model.paymentType = "cash"
+                    self.reload()
+                })
             }
             return cell!
         case viewModel.realmData.count + 1:
             let cell = reuse(tableView, indexPath, "RowButton") as? RowButton
             cell?.initialize("Добавить карту")
             cell?.button.onTap = {
-                DispatchQueue.main.async {
-                    alertAction.message("Информация", "Данный раздел находится в разработке", fButtonName: "Ок", fButtonAction: {
-                    })
+                api.request([
+                    "router": "addCard"
+                    ], true) { [unowned self] json in
+                        utils.openUrlInWebViewHTML(json["data"].stringValue)
+                        log.error(json)
                 }
             }
+            
             return cell!
         default:
             let cellData = viewModel.realmData[indexPath.row - 1]
+//            log.error("\(viewModel.model.paymentType) == \(cellData.hashId)")
             let cell = reuse(tableView, indexPath, "CardsBaseTableCell") as? CardsBaseTableCell
-            cell?.initialize(cellData.lastCardDigits, viewModel.model.paymentType == cellData.hashId)
+            cell?.initialize(utils.formatter.card(cellData.cardNumber), viewModel.model.paymentType == cellData.hashId)
             cell?.onTap = { [unowned self] in
                 self.viewModel.cardAction(cellData, completion: { [unowned self] in
                     self.reload()
                 })
-//                self.viewModel.model.paymentType = cellData.hashId
-//                self.reload()
+                //                self.viewModel.model.paymentType = cellData.hashId
+                //                self.reload()
             }
             return cell!
         }
-//        return BaseTableCell()
+        //        return BaseTableCell()
     }
     
 }

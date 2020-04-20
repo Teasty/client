@@ -121,7 +121,7 @@ extension MapOptionsTableCell: UICollectionViewDelegate, UICollectionViewDataSou
         case 1:
             var payment = "Наличные"
             if user.info.paymentType != "cash" {
-                payment = "Карта"
+                payment = "Карта \(utils.formatter.card(utils.realm.payment.getObjects().first(where: { $0.hashId == user.info.paymentType })?.cardNumber ?? "****************"))"
 //                let realm = try! Realm()
 //                if let card = realm.object(ofType: Payment.self, forPrimaryKey: user.info.paymentType) {
 //

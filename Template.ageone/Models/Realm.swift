@@ -115,12 +115,12 @@ class Msg: Object {
    }
 }
 
-class Payment: Object {
-    @objc dynamic var lastCardDigits: String = String()
+class Card: Object {
+    @objc dynamic var cardNumber: String = String()
     @objc dynamic var created: Int = Int()
     @objc dynamic var isExist: Bool = Bool()
     @objc dynamic var hashId: String = String()
-    @objc dynamic var rebillAnchor: String = String()
+    @objc dynamic var cardHolder: String = String()
     @objc dynamic var updated: Int = Int()
     override class func primaryKey() -> String? {
        return "hashId"
@@ -176,16 +176,15 @@ class User: Object {
     @objc dynamic var mssqlId: String = String()
     @objc dynamic var email: String = String()
     @objc dynamic var deviceId: String = String()
-    let cards = List<Payment>()
+    let cards = List<Card>()
     @objc dynamic var category: String = String()
     @objc dynamic var phone: String = String()
-    
     @objc dynamic var isExist: Bool = Bool()
     let stringArr = List<String>()
     @objc dynamic var isStandardAvailable: Bool = Bool()
     @objc dynamic var lastReject: Int = Int()
     @objc dynamic var isDriver: Bool = Bool()
-    @objc dynamic var activeCard: Payment?
+    @objc dynamic var activeCard: Card?
     override class func primaryKey() -> String? {
        return "hashId"
    }
@@ -252,7 +251,32 @@ class Order: Object {
     @objc dynamic var timeDriverAccepted: Int = Int()
     @objc dynamic var timeRideEnd: Int = Int()
     @objc dynamic var distance: Double = Double()
+    @objc dynamic var roadToArrival: Road?
     override class func primaryKey() -> String? {
         return "hashId"
     }
+}
+
+class RoadPoint: Object {
+    @objc dynamic var updated: Int = Int()
+    @objc dynamic var lng: Double = Double()
+    @objc dynamic var lat: Double = Double()
+    @objc dynamic var hashId: String = String()
+    @objc dynamic var created: Int = Int()
+    @objc dynamic var isExist: Bool = Bool()
+    override class func primaryKey() -> String? {
+       return "hashId"
+   }
+}
+
+class Road: Object {
+    @objc dynamic var updated: Int = Int()
+    @objc dynamic var roadLength: Double = Double()
+    let roadPoints = List<RoadPoint>()
+    @objc dynamic var hashId: String = String()
+    @objc dynamic var created: Int = Int()
+    @objc dynamic var isExist: Bool = Bool()
+    override class func primaryKey() -> String? {
+       return "hashId"
+   }
 }

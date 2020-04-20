@@ -42,6 +42,7 @@ class RxData {
         var comment = String()
         var options: [WishList: WishListValue] = [:]
         var tariff = Tariff()
+        var upCost: Int = 0
         var change: String = "Под расчёт"
         var basePrice = Double()
         var price = Double()
@@ -139,7 +140,7 @@ class RxData {
                 rxData.state.accept(RxData.StateType.destination)
             }
         }
-        log.verbose(rxData.currentOrder)
+//        log.verbose(rxData.currentOrder)
     }
     
     public var currentOrder: Order?

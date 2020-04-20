@@ -59,7 +59,8 @@ class WebView: BaseController {
         super.viewDidLoad()
         
         // MARK: UI
-        
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
         self.view.backgroundColor = .white
         self.navigationItem.title = self.pageTitle
         
@@ -155,7 +156,16 @@ extension WebView {
 
 // MARK: webview delegate
 
-extension WebView: WKNavigationDelegate {
+extension WebView: WKNavigationDelegate, WKUIDelegate, UIWebViewDelegate {
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+        let surl = request.url?.absoluteString ?? ""
+        if surl.contains("flowTonesApp") {
+            self.dismiss(animated: true, completion: nil)
+           return false
+        }
+        return true
+    }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         log.debug("load webview is finished")

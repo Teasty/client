@@ -8,6 +8,7 @@
 
 import UIKit
 import PromiseKit
+import RealmSwift
 
 private enum LaunchInstructor {
     case main, auth
@@ -46,6 +47,7 @@ extension FlowCoordinator {
     // MARK: Restricted Core Flow [Don't use as template]
     
     fileprivate func runFlowLoading() {
+        user.info.cacheTime = 0
         api.requestMainLoad()
         socket._init()
         var flow: FlowLoading? = FlowLoading()
@@ -59,6 +61,10 @@ extension FlowCoordinator {
     // MARK: auth
     
     public func runFlowAuth() {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
         var flow: FlowAuth? = FlowAuth()
         flow?.onFinishFlow = { [unowned self] in
             self.start()

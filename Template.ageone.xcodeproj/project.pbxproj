@@ -59,7 +59,6 @@
 		5D4A465A2279ABAD00942A7A /* SideMenuExpansionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A46592279ABAD00942A7A /* SideMenuExpansionTableCell.swift */; };
 		5D4A465D2279B9E300942A7A /* LabelActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A465C2279B9E300942A7A /* LabelActive.swift */; };
 		5D4A4F7722693DF600180AD2 /* RealmUtiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A4F7622693DF600180AD2 /* RealmUtiles.swift */; };
-		5D596E49231BDCF1001B1EFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D596E48231BDCF0001B1EFE /* GoogleService-Info.plist */; };
 		5D6F0A87223D1B9700BB1955 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6F0A86223D1B9700BB1955 /* BaseModel.swift */; };
 		5D879C832244696B00F821CC /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D879C822244696B00F821CC /* LoadingViewModel.swift */; };
 		5D879C852244718C00F821CC /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D879C842244718C00F821CC /* Variables.swift */; };
@@ -170,6 +169,8 @@
 		5DECB690229C2F0700402575 /* Accurancy2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DECB68F229C2F0700402575 /* Accurancy2View.swift */; };
 		5DECB694229C2F3600402575 /* Accurancy2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DECB693229C2F3600402575 /* Accurancy2ViewModel.swift */; };
 		5DECB696229C32FC00402575 /* MapCompositeFieldFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DECB695229C32FC00402575 /* MapCompositeFieldFrom.swift */; };
+		A920664C243F6C300033F738 /* WishListUpCostTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A920664B243F6C300033F738 /* WishListUpCostTableCell.swift */; };
+		A9206679244CB9DC0033F738 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9206678244CB9DB0033F738 /* GoogleService-Info.plist */; };
 		A92CA4C82423BF4F006CD66F /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4C72423BF4F006CD66F /* LicenseView.swift */; };
 		A92CA4CB2423C167006CD66F /* LicenseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4CA2423C167006CD66F /* LicenseRow.swift */; };
 		A92CA4CD2423CFE7006CD66F /* License.doc in Resources */ = {isa = PBXBuildFile; fileRef = A92CA4CC2423CAD9006CD66F /* License.doc */; };
@@ -229,7 +230,6 @@
 		5D4A46592279ABAD00942A7A /* SideMenuExpansionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuExpansionTableCell.swift; sourceTree = "<group>"; };
 		5D4A465C2279B9E300942A7A /* LabelActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelActive.swift; sourceTree = "<group>"; };
 		5D4A4F7622693DF600180AD2 /* RealmUtiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtiles.swift; sourceTree = "<group>"; };
-		5D596E48231BDCF0001B1EFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D6F0A86223D1B9700BB1955 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		5D879C822244696B00F821CC /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		5D879C842244718C00F821CC /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
@@ -344,6 +344,8 @@
 		5DECB68F229C2F0700402575 /* Accurancy2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accurancy2View.swift; sourceTree = "<group>"; };
 		5DECB693229C2F3600402575 /* Accurancy2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accurancy2ViewModel.swift; sourceTree = "<group>"; };
 		5DECB695229C32FC00402575 /* MapCompositeFieldFrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCompositeFieldFrom.swift; sourceTree = "<group>"; };
+		A920664B243F6C300033F738 /* WishListUpCostTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListUpCostTableCell.swift; sourceTree = "<group>"; };
+		A9206678244CB9DB0033F738 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A92CA4C72423BF4F006CD66F /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
 		A92CA4CA2423C167006CD66F /* LicenseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseRow.swift; sourceTree = "<group>"; };
 		A92CA4CC2423CAD9006CD66F /* License.doc */ = {isa = PBXFileReference; lastKnownFileType = file; path = License.doc; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				5DA4E778227FF6B60069972F /* WishListBaseTableCell.swift */,
 				5DA4E78A2281E0C60069972F /* WishListStaticTableCell.swift */,
 				5DA4E77A227FFA6C0069972F /* WishListCommentTableCell.swift */,
+				A920664B243F6C300033F738 /* WishListUpCostTableCell.swift */,
 			);
 			path = Rows;
 			sourceTree = "<group>";
@@ -700,7 +703,7 @@
 		5D6F0A7E223C82DC00BB1955 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				5D596E48231BDCF0001B1EFE /* GoogleService-Info.plist */,
+				A9206678244CB9DB0033F738 /* GoogleService-Info.plist */,
 				5D91E5A4223D64FA009400E8 /* R.generated.swift */,
 				5DBC0DDF2238E5940059FB02 /* Bridging-Header.h */,
 				5DBC0D822236E9060059FB02 /* Info.plist */,
@@ -1345,12 +1348,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A92CA4CD2423CFE7006CD66F /* License.doc in Resources */,
+				A9206679244CB9DC0033F738 /* GoogleService-Info.plist in Resources */,
 				5DBC0D812236E9060059FB02 /* LaunchScreen.storyboard in Resources */,
 				5D879D00224E4E1800F821CC /* heart.gif in Resources */,
 				5D879D12224E9D8800F821CC /* cart.gif in Resources */,
 				5DBC0DE72238E6980059FB02 /* Localizable.strings in Resources */,
 				5DBC0D7E2236E9060059FB02 /* Assets.xcassets in Resources */,
-				5D596E49231BDCF1001B1EFE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1531,6 +1534,7 @@
 				5DECB694229C2F3600402575 /* Accurancy2ViewModel.swift in Sources */,
 				5D4A465222799B5F00942A7A /* Gradient.swift in Sources */,
 				5DDC028D227D33A200EE267E /* RealmStatic.swift in Sources */,
+				A920664C243F6C300033F738 /* WishListUpCostTableCell.swift in Sources */,
 				5DBC0DAB2237D6230059FB02 /* UIViewController.swift in Sources */,
 				5D4A46012276D85600942A7A /* CommentViewModel.swift in Sources */,
 				5D879D03224E4EC300F821CC /* UITableView.swift in Sources */,
@@ -1791,7 +1795,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Template.ageone/Template.ageone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.4;
+				CURRENT_PROJECT_VERSION = 4.0.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S4X7JDRNB6;
 				INFOPLIST_FILE = Template.ageone/SupportingFiles/Info.plist;
@@ -1800,7 +1804,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.snejokclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Template.ageone/SupportingFiles/Bridging-Header.h";
@@ -1819,7 +1823,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Template.ageone/Template.ageone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.4;
+				CURRENT_PROJECT_VERSION = 4.0.2;
 				DEVELOPMENT_TEAM = S4X7JDRNB6;
 				INFOPLIST_FILE = Template.ageone/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1827,7 +1831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.snejokclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Template.ageone/SupportingFiles/Bridging-Header.h";

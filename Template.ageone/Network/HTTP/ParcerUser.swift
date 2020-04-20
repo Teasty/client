@@ -16,13 +16,24 @@ extension Parser {
         user.email = json["email"].stringValue
         user.phone = json["phone"].stringValue
         
-        for card in json["cards"] {
+        let activecard = json["activeCard"]
+        if activecard["hashId"].exists() {
+            user.info.paymentType = activecard["hashId"].stringValue
+        } else {
+            user.info.paymentType = "cash"
+        }
+        
+        for card in json["cardList"] {
             let realm = try! Realm()
             try! realm.write {
-                let payment = Payment()
-                payment.lastCardDigits = card.1["lastCardDigits"].stringValue
-                payment.hashId = json["hashId"].stringValue
-                payment.isExist = json["isExist"].boolValue
+                let payment = Card()
+                log.info(card)
+                payment.created = card.1["created"].intValue
+                payment.updated = card.1["updated"].intValue
+                payment.hashId = card.1["hashId"].stringValue
+                payment.isExist = card.1["isExist"].boolValue
+                payment.cardHolder = card.1["cardHolder"].stringValue
+                payment.cardNumber = card.1["cardNumber"].stringValue
                 realm.add(payment, update: true)
             }
         }
