@@ -98,7 +98,7 @@ class SocketIONetwork {
                     }
                 }
                 rxData.carOnMap.accept(cars)
-                rxData.carOnMap2.accept(cars)
+//                rxData.carOnMap2.accept(cars)
             } else if rxData.state.value != .waiting {
                 var cars = [CarOnMap]()
                 for e in json[0] {
@@ -110,10 +110,10 @@ class SocketIONetwork {
                     )
                 }
                 rxData.carOnMap.accept(cars)
-                rxData.carOnMap2.accept(cars)
+//                rxData.carOnMap2.accept(cars)
             } else {
                 rxData.carOnMap.accept([CarOnMap]())
-                rxData.carOnMap2.accept([CarOnMap]())
+//                rxData.carOnMap2.accept([CarOnMap]())
             }
         }
         )

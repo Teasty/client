@@ -3,8 +3,8 @@
 import Alamofire
 
 public enum DataBase {
-//	static var url: String = "https://api.taxi-snejok.ru"
-    static var url: String = "http://212.109.219.69:3006"
+	static var url: String = "https://api.taxi-snejok.ru"
+//    static var url: String = "http://212.109.219.69:3006"
 	static var database: String = "/database" 
 	static var headers: HTTPHeaders = [
 		"content-type": "application/json",

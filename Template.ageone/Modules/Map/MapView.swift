@@ -254,11 +254,13 @@ extension MapView {
     fileprivate func bindUI() {
         log.info("BindUi")
         
-        rxData.carOnMap2.onChange = {
+        rxData.carOnMap
+            .distinctUntilChanged()
+            .bind(onNext: { _ in
             log.info(self.viewModel.carsOnMap)
             self.updateCarOnMap()
-            //            self.reload()
-        }
+            
+        })
         
         rxData.state.asObservable()
             .asObservable()

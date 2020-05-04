@@ -272,8 +272,8 @@ class RoadPoint: Object {
 class Road: Object {
     @objc dynamic var updated: Int = Int()
     @objc dynamic var roadLength: Double = Double()
-    let roadPoints = List<RoadPoint>()
     @objc dynamic var hashId: String = String()
+    @objc dynamic var roadPolyline: String = String()
     @objc dynamic var created: Int = Int()
     @objc dynamic var isExist: Bool = Bool()
     override class func primaryKey() -> String? {

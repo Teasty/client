@@ -79,16 +79,12 @@ extension MapView {
     public func drawPolilyne() {
         guard let road = rxData.currentOrder?.roadToArrival else { return }
         deleteAllPolylines()
-        let path = GMSMutablePath()
-        for point in road.roadPoints {
-            path.addLatitude(point.lat, longitude: point.lng)
-        }
-        let newPath = GMSPath(fromEncodedPath: path.encodedPath())
+        let newPath = GMSPath(fromEncodedPath: road.roadPolyline)
         let polyline = GMSPolyline(path: newPath)
         polyline.strokeColor = utils.constants.colors.red
         polyline.strokeWidth = 4
         polyline.map = self.map
-        map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: path), withPadding: 50.0))
+        map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: newPath!), withPadding: 50.0))
         viewModel.polylines.append(polyline)
     }
     

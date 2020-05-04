@@ -84,8 +84,7 @@ class RxData {
     
     public var carOnMap = BehaviorRelay.init(value: [CarOnMap]())
     
-    public var state2 = ObservableVariable.init(StateType.current)
-    public var carOnMap2 = ObservableVariable.init([CarOnMap]())
+    
     
 //    fileprivate func startWatchingDriver() {
 //        if let driver = rxData.currentOrder?.driver {
@@ -173,16 +172,4 @@ class RxData {
         return dist * 1000
     }
     
-}
-
-class ObservableVariable {
-    public var onChange: (() -> Void)?
-    public var value: Any
-    init<T>(_ initValue: T) {
-        value = initValue
-    }
-    public func accept<T>(_ newValue: T) {
-        value = newValue
-        onChange?()
-    }
 }

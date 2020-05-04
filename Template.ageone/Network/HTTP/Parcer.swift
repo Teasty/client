@@ -426,22 +426,13 @@ extension Parser {
             return nil
         }
         
-        var roadPoints: [RoadPoint] = []
-        let map = json["roadPoints"].dictionaryValue.sorted(by: { Int($0.0) ?? 0 < Int($1.0) ?? 0 })
-//        log.verbose(map)
-        for element in map {
-            if let point = parseRoadPoint(element.value) {
-                roadPoints.append(point)
-//                log.info(roadPoints)
-            }
-        }
         let object = Road()
         try? realm.write {
             object.hashId = json["hashId"].stringValue
             object.created = json["created"].intValue
             object.updated = json["updated"].intValue
             object.roadLength = json["roadLength"].doubleValue
-            object.roadPoints.append(objectsIn: roadPoints)
+            object.roadPolyline = json["roadPolyline"].stringValue
             object.isExist = json["isExist"].boolValue
             realm.add(object, update: true)
         }

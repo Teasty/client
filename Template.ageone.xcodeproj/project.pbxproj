@@ -1795,7 +1795,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Template.ageone/Template.ageone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.2;
+				CURRENT_PROJECT_VERSION = 4.1.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S4X7JDRNB6;
 				INFOPLIST_FILE = Template.ageone/SupportingFiles/Info.plist;
@@ -1804,7 +1804,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.snejokclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Template.ageone/SupportingFiles/Bridging-Header.h";
@@ -1823,7 +1823,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Template.ageone/Template.ageone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.2;
+				CURRENT_PROJECT_VERSION = 4.1.5;
 				DEVELOPMENT_TEAM = S4X7JDRNB6;
 				INFOPLIST_FILE = Template.ageone/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -1831,7 +1831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.snejokclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Template.ageone/SupportingFiles/Bridging-Header.h";
