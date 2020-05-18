@@ -62,10 +62,19 @@ final class Accurancy2ViewModel: BaseViewModel, ViewModelProtocol {
     // MARK: - Localization
     
     enum Localization {
-        static let title                     = "Accurancy2.Title".localized()
+        static let title                     = "Место подачи"
+        static let error                     = "Укажите номер дома и место подачи"
     }
     
     // MARK: private
+    
+    public func validate(completion: @escaping () -> Void) {
+        if rxData.order.value.from.home.isEmpty {
+            alertAction.message(AccurancyViewModel.Localization.error)
+            return
+        }
+        completion()
+    }
     
     // MARK: public
     

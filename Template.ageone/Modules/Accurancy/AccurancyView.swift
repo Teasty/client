@@ -117,7 +117,9 @@ extension AccurancyView: UITableViewDelegate, UITableViewDataSource {
             let cell = reuse(tableView, indexPath, "RowButton") as? RowButton
             cell?.initialize("Готово")
             cell?.button.onTap = { [unowned self] in
+                log.error("lolollololoksokoskosk")
                 self.viewModel.validate {
+                    log.error("lolollololoksokoskosk")
                     rxData.state.accept(RxData.StateType.destination)
                     self.emitEvent?(AccurancyViewModel.EventType.onFinish.rawValue)
                 }

@@ -76,8 +76,12 @@ extension Accurancy2View: UITableViewDelegate, UITableViewDataSource {
             let cell = reuse(tableView, indexPath, "RowButton") as? RowButton
             cell?.initialize("Готово")
             cell?.button.onTap = { [unowned self] in
-                self.onSelect?(self.viewModel.model.home)
-                self.dismiss(animated: true)
+                if self.viewModel.model.home.isEmpty {
+                     alertAction.message(AccurancyViewModel.Localization.error)
+                } else {
+                    self.onSelect?(self.viewModel.model.home)
+                    self.dismiss(animated: true)
+                }
             }
             return cell!
         }
