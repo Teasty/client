@@ -132,6 +132,13 @@ extension API {
             return
         }
         
+        if rxData.order.value.basePrice == 0 || rxData.order.value.basePrice == 111 {
+            alertAction.message("Ошибка заказа", "На данный момент мы не можем туда доехать", fButtonName: "Ок") {
+                loading.hide()
+            }
+            return
+        }
+        
         if rxData.order.value.from.street.isEmpty && rxData.order.value.from.stringName.isEmpty {
             alertAction.message("Ошибка заказа", "Вы не выбрали место отправления", fButtonName: "Ок") {
                 loading.hide()

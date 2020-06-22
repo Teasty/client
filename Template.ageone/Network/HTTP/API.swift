@@ -18,6 +18,7 @@ class API {
     public enum Routes {
         static var handshake = "/handshake"
         static var api = "/api"
+        static var geocode = "/geocode"
     }
     
     public func handshake() -> Promise<Void> {
@@ -78,7 +79,47 @@ class API {
             encoding: JSONEncoding.default,
             headers: DataBase.headers).responseJSON { responce in
                 
-//                log.error(responce.debugDescription)
+                //                log.error(responce.debugDescription)
+                
+                guard let statusCode = responce.response?.statusCode else { return }
+                
+                guard let value = responce.result.value else {
+                    if let error = responce.error {
+                        alertAction.message(error.localizedDescription)
+                        log.error(error.localizedDescription)
+                        loading.hide()
+                    }
+                    return
+                }
+                
+                let json = JSON(value)
+                if json["error"].exists() && !(200..<300).contains(statusCode) {
+                    log.error(json["error"].stringValue)
+                    if isErrorShow {
+                        loading.hide()
+                        alertAction.message(json["error"].stringValue)
+                    } else {
+                        completion(json)
+                    }
+                } else {
+                    completion(json)
+                }
+        }
+        debugPrint(debug)
+    }
+    
+    public func geocode(
+        _ parameters: Parameters,
+        _ isErrorShow: Bool = false,
+        completion: @escaping (JSON) -> Void) {
+        let debug = Alamofire.request(
+            "\(DataBase.url)\(Routes.geocode)",
+            method: HTTPMethod.post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: DataBase.headers).responseJSON { responce in
+                
+                //                log.error(responce.debugDescription)
                 
                 guard let statusCode = responce.response?.statusCode else { return }
                 

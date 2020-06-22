@@ -26,15 +26,25 @@ extension MapView: GMSMapViewDelegate {
         if rxData.state.value == .current || rxData.state.value == .destination || rxData.state.value == .to {
             // geodecodeByCoordinatesByAPI
             DispatchQueue.global(qos: .background).async {
-                utils.googleMapKit.geodecodeByCoordinatesByAPI(GoogleMapKit.Coordinates(
-                    lat: position.target.latitude, lng: position.target.longitude)) { address in
+                
+                let parameters: [String:Any] = [
+                    "router":"geocodeReverse",
+                    "lat": position.target.latitude,
+                    "lng": position.target.longitude
+                ]
+                api.geocode(parameters, completion: { json in
+                    utils.googleMapKit.parseResultFromServer(json) { address in
                         var order = rxData.order.value
                         if rxData.state.value == .current {
                             order.from = address
+                            order.from.lat = position.target.latitude
+                            order.from.lng = position.target.longitude
                             order.from.stringName = "\(address.street) \(address.home)"
                         }
                         if rxData.state.value == .destination || rxData.state.value == .to {
                             order.to = address
+                            order.to.lat = position.target.latitude
+                            order.to.lng = position.target.longitude
                             order.to.stringName = "\(address.street) \(address.home)"
                             DispatchQueue.main.async {
                                 api.requestPrice {}
@@ -42,7 +52,27 @@ extension MapView: GMSMapViewDelegate {
                         }
                         rxData.order.accept(order)
                         self.isMapAddressParsingBlock = false
-                }
+                    }
+                })
+                
+                
+//                utils.googleMapKit.geodecodeByCoordinatesByAPI(GoogleMapKit.Coordinates(
+//                    lat: position.target.latitude, lng: position.target.longitude)) { address in
+//                        var order = rxData.order.value
+//                        if rxData.state.value == .current {
+//                            order.from = address
+//                            order.from.stringName = "\(address.street) \(address.home)"
+//                        }
+//                        if rxData.state.value == .destination || rxData.state.value == .to {
+//                            order.to = address
+//                            order.to.stringName = "\(address.street) \(address.home)"
+//                            DispatchQueue.main.async {
+//                                api.requestPrice {}
+//                            }
+//                        }
+//                        rxData.order.accept(order)
+//                        self.isMapAddressParsingBlock = false
+//                }
             }
         }
     }

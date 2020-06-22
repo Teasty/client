@@ -68,7 +68,7 @@ extension ArticleListView: UITableViewDelegate, UITableViewDataSource {
         
         default:
             let cell = UITableViewCell(style: .default, reuseIdentifier: "AtticleCellDefault")
-            cell.textLabel?.text = "Версия приложения: 1.2"
+            cell.textLabel?.text = "Версия приложения: 1.3"
             cell.selectionStyle = .none
             return cell
         }

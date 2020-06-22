@@ -25,6 +25,14 @@ class GoogleMapKit {
         var lng = Double()
         var stringName = String()
     }
+    struct AddressFromServer {
+        var home = String()
+        var street = String()
+        var city = String()
+        var lat = Double()
+        var lng = Double()
+        var stringName = String()
+    }
     
     struct Coordinates {
         var lat = Double()
@@ -43,7 +51,7 @@ class GoogleMapKit {
         }
         autocompliteGM?.open(filerType)
     }
- 
+    
     func getAddressFromLatLong(address: String, completion: @escaping (Address) -> Void) {
         let url = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address))&key=\(utils.keys.googleApiKey)"
         log.info(url)
@@ -99,6 +107,14 @@ class GoogleMapKit {
         return address
     }
     
+    public func parseResultFromServer(_ components: JSON, completion: @escaping (Address) -> Void) {
+        var address = Address()
+        address.city = components["city"].stringValue
+        address.street = components["street"].stringValue
+        address.home = components["house"].stringValue
+        completion(address)
+    }
+    
     public func geodecodeByCoordinatesByAPI(_ coordinates: Coordinates, completion: @escaping (Address) -> Void) {
         let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(coordinates.lat),\(coordinates.lng)&key=\(utils.keys.googleApiKey)"
         log.info(url)
@@ -129,19 +145,19 @@ class GoogleMapKit {
         }
     }
     
-//    public func geodecodeByAddress(_ address: String){
-//        let url = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=\(utils.keys.googleApiKey)"
-//        Alamofire.request(url).validate().responseJSON { [unowned self] response in
-//            switch response.result {
-//            case .success:
-//                let json = JSON(response.result.value!)
-//                log.verbose(json)
-//                completion(self.parseGoogleMapResultsFromJson(json))
-//            case .failure(let error):
-//                log.error(error)
-//            }
-//        }
-//    }
+    //    public func geodecodeByAddress(_ address: String){
+    //        let url = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=\(utils.keys.googleApiKey)"
+    //        Alamofire.request(url).validate().responseJSON { [unowned self] response in
+    //            switch response.result {
+    //            case .success:
+    //                let json = JSON(response.result.value!)
+    //                log.verbose(json)
+    //                completion(self.parseGoogleMapResultsFromJson(json))
+    //            case .failure(let error):
+    //                log.error(error)
+    //            }
+    //        }
+    //    }
     
 }
 
@@ -201,25 +217,25 @@ extension GoogleMapKit {
         }
     }
     
-//    public func loadRoutePath2(from: Coordinates, to: Coordinates) -> [GMSPath] {
-//        let origin = "\(from.lat),\(from.lng)"
-//        let destination = "\(to.lat),\(to.lng)"
-//        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(utils.keys.googleApiKey)"
-//        Alamofire.request(url).validate().responseJSON { response in
-//            let json = JSON(response.result.value!)
-//            let routes = json["routes"].arrayValue
-//            let responce = [GMSPath]()
-//            for route in routes {
-//                let routeOverviewPolyline = route["overview_polyline"].dictionary
-//                let points = routeOverviewPolyline?["points"]?.stringValue
-//                let path = GMSPath.init(fromEncodedPath: points!)
-//                let polyline = GMSPolyline.init(path: path)
-//                polyline.strokeColor = UIColor.blue
-//                polyline.strokeWidth = 2
-//                polyline.map = map
-//                map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: path!), withPadding: 50.0))
-//            }
-//        }
-//    }
+    //    public func loadRoutePath2(from: Coordinates, to: Coordinates) -> [GMSPath] {
+    //        let origin = "\(from.lat),\(from.lng)"
+    //        let destination = "\(to.lat),\(to.lng)"
+    //        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(utils.keys.googleApiKey)"
+    //        Alamofire.request(url).validate().responseJSON { response in
+    //            let json = JSON(response.result.value!)
+    //            let routes = json["routes"].arrayValue
+    //            let responce = [GMSPath]()
+    //            for route in routes {
+    //                let routeOverviewPolyline = route["overview_polyline"].dictionary
+    //                let points = routeOverviewPolyline?["points"]?.stringValue
+    //                let path = GMSPath.init(fromEncodedPath: points!)
+    //                let polyline = GMSPolyline.init(path: path)
+    //                polyline.strokeColor = UIColor.blue
+    //                polyline.strokeWidth = 2
+    //                polyline.map = map
+    //                map.animate(with: GMSCameraUpdate.fit(GMSCoordinateBounds(path: path!), withPadding: 50.0))
+    //            }
+    //        }
+    //    }
     
 }

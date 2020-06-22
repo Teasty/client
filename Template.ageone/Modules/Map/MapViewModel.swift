@@ -254,7 +254,7 @@ final class MapViewModel: BaseViewModel, ViewModelProtocol {
 // MARK: CalcPrice
     public func getRidePrice() -> String {
         
-        if rxData.order.value.basePrice == 0.0 {
+        if rxData.order.value.basePrice == 0.0 || rxData.order.value.basePrice == 111 {
             return "\(rxData.order.value.tariff.info)"
         }
 
