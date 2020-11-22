@@ -25,7 +25,9 @@ class API {
         return Promise { seal in
             let parameters: Parameters = [
                 "deviceId": utils.constants.uuid,
-                "isDriver": "false"
+                "isDriver": "false",
+                "appVersion": (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String)!,
+                "pkgName": Bundle.main.bundleIdentifier!
             ]
             log.info("Параметры: \(parameters)")
             Alamofire.request(
@@ -48,6 +50,12 @@ class API {
                         log.error(json["error"].stringValue)
                         //                        MARK:  Кинуть АЛЕРТ
                         return
+                    } else if json["needToUpdate"].boolValue {
+                        alertAction.message("Информация", "Доступна новая версия приложения", fButtonName: "Скачать", fButtonAction: {
+                            if let url = URL(string: "itms-apps://apple.com/app/id1501229593") {
+                                UIApplication.shared.open(url)
+                            }
+                        })
                     } else {
                         utils.variables.serverToken = json["Token"].stringValue
                         database.headers["x-access-token"] = utils.variables.serverToken
@@ -64,7 +72,7 @@ class API {
                         }
                         seal.fulfill_()
                     }
-            }
+                }
         }
     }
     
@@ -104,7 +112,7 @@ class API {
                 } else {
                     completion(json)
                 }
-        }
+            }
         debugPrint(debug)
     }
     
@@ -144,7 +152,7 @@ class API {
                 } else {
                     completion(json)
                 }
-        }
+            }
         debugPrint(debug)
     }
 }
